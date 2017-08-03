@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+    database:
+        image: mongo:latest
+        ports:
+            - 27017:27017
+        restart: always
+
+    app:
+        depends_on:
+            - database
+        image: sampleapp:latest
+        ports:
+            - 5000:80
+        environment:
+            - DB_NAME=test
+            - DB_URI=mongodb://database:27017/test
+        restart: always
+
+    jumper:
+        image: tutum/dnsutils:latest
