@@ -17,6 +17,3 @@ services:
             - DB_NAME=test
             - DB_URI=mongodb://database:27017/test
         restart: always
-
-    jumper:
-        image: tutum/dnsutils:latest

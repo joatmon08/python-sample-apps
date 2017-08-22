@@ -1,2 +1,4 @@
 flask
 flask_pymongo
+pytest
+requests

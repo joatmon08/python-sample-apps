@@ -6,11 +6,15 @@ import logging
 app = Flask(__name__)
 try:
     app.config['MONGO_DBNAME'] = os.environ['DB_NAME']
-    app.config['MONGO_URI'] = os.environ.get['DB_URI']
+    app.config['MONGO_URI'] = os.environ['DB_URI']
 except Exception as e:
     logging.error(e)
 
 mongo = PyMongo(app)
+
+@app.route('/')
+def hello():
+    return 'Hello World!'
 
 @app.route('/star', methods=['GET'])
 def get_all_stars():
@@ -19,16 +23,6 @@ def get_all_stars():
   for s in star.find():
       output.append({'name' : s['name'], 'distance' : s['distance']})
   return jsonify({'result' : output})
-
-@app.route('/star/<name>', methods=['GET'])
-def get_one_star(name):
-    star = mongo.db.stars
-    s = star.find_one({'name' : name})
-    if s:
-        output = {'name' : s['name'], 'distance' : s['distance']}
-    else:
-        output = "No such name"
-    return jsonify({'result' : output})
 
 @app.route('/star', methods=['POST'])
 def add_star():
