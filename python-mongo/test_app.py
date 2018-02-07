@@ -2,7 +2,7 @@ import pytest
 import requests
 import json
 
-url = 'http://192.168.99.102:31850'
+url = 'http://localhost:5000'
 
 star = {'name': 'hello', 'distance': 100}
 headers = {'Content-Type': 'application/json'}
