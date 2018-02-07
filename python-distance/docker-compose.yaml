@@ -1,0 +1,8 @@
+version: '2'
+
+services:
+  app:
+    image: joatmon08/distance:latest
+    ports:
+      - 5000:80
+    restart: always
