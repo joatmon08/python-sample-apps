@@ -7,6 +7,7 @@ app = Flask(__name__)
 try:
     app.config['MONGO_DBNAME'] = os.environ['DB_NAME']
     app.config['MONGO_URI'] = os.environ['DB_URI']
+    app.config['APP_PORT'] = int(os.getenv('APP_PORT', 80))
 except Exception as e:
     logging.error(e)
 
@@ -35,4 +36,4 @@ def add_star():
     return jsonify({'result' : output})
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=80, debug=True)
+    app.run(host="0.0.0.0", port=app.config['APP_PORT'], debug=True)

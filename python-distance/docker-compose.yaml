@@ -1,8 +1,25 @@
 version: '2'
 
 services:
-  app:
+  database:
+      image: mongo:latest
+      restart: always
+
+  stars:
+      depends_on:
+        - database
+      image: joatmon08/stars:latest
+      ports:
+        - 6000:80
+      environment:
+        - DB_NAME=test
+        - DB_URI=mongodb://database:27017/test
+      restart: always
+
+  distance:
     image: joatmon08/distance:latest
     ports:
       - 5000:80
+    environment:
+      - STARS_ENDPOINT=http://stars
     restart: always
