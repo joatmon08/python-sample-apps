@@ -36,8 +36,9 @@ class DistanceHealthStatus():
     def check_database(self):
         try:
             client = pymongo.MongoClient(os.getenv('DB_URI', 'mongodb://localhost:27017'),
-                                        serverSelectionTimeoutMS=100).database_names()
-        except pymongo.errors.ServerSelectionTimeoutError as e:
+                                        serverSelectionTimeoutMS=100)
+            client.dbstars.collection_names()
+        except Exception as e:
             logging.error(e)
             self.database = 'disconnected'
 
