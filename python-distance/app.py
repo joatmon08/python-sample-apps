@@ -1,10 +1,21 @@
 from flask import Flask, jsonify, request
-import pymongo
+from flask_pymongo import PyMongo
 import os
 import logging
 import requests
 
 headers = {'Content-Type': 'application/json'}
+
+app = Flask(__name__)
+try:
+    app.config['STARS_ENDPOINT'] = os.environ['STARS_ENDPOINT']
+    app.config['MONGO_URI'] = os.environ['DB_URI']
+    app.config['MONGO_DBNAME'] = os.environ['DB_NAME']
+except Exception as e:
+    logging.error(e)
+
+mongo = PyMongo(app)
+
 
 class DistanceError(Exception):
     status_code = 500
@@ -35,19 +46,11 @@ class DistanceHealthStatus():
     
     def check_database(self):
         try:
-            client = pymongo.MongoClient(os.getenv('DB_URI', 'mongodb://localhost:27017'),
-                                        serverSelectionTimeoutMS=100)
-            client.dbstars.collection_names()
+            mongo.db.stars.find()
         except Exception as e:
             logging.error(e)
             self.database = 'disconnected'
 
-app = Flask(__name__)
-try:
-    app.config['STARS_ENDPOINT'] = os.environ['STARS_ENDPOINT']
-    app.config['APP_PORT'] = int(os.getenv('APP_PORT', 80))
-except Exception as e:
-    logging.error(e)
 
 @app.errorhandler(DistanceError)
 def handle_distance_error(error):

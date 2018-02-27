@@ -12,8 +12,8 @@ services:
       ports:
         - 6000:80
       environment:
-        - DB_NAME=test
-        - DB_URI=mongodb://database:27017/test
+        - DB_NAME=dbstars
+        - DB_URI=mongodb://database:27017
       restart: always
 
   distance:

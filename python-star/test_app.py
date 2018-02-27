@@ -7,6 +7,12 @@ url = 'http://localhost:5000'
 star = {'name': 'hello', 'distance': 100}
 headers = {'Content-Type': 'application/json'}
 
+
+def test_should_have_health_endpoint():
+    r = requests.get(url + '/star/health')
+    assert r.json() == {'database': 'connected'}
+
+
 def test_should_get_no_stars():
     r = requests.get(url + '/star')
     r.raise_for_status()

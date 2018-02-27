@@ -1,4 +1,4 @@
 flask
-pymongo
+flask_pymongo
 pytest
 requests

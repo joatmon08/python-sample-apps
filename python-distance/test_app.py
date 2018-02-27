@@ -11,7 +11,7 @@ headers = {'Content-Type': 'application/json'}
 def test_should_return_connected_to_stars_only():
     r = requests.get(url + '/distance/health')
     assert r.status_code == 200
-    assert r.json() == {'stars': 'connected', 'database': 'disconnected'}
+    assert r.json() == {'stars': 'connected', 'database': 'connected'}
 
 def test_should_return_sum_of_distance():
     data = json.dumps(star)
