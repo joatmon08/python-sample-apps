@@ -1,0 +1,4 @@
+docker-compose.yaml
+venv
+*cache*
+test_app.py
