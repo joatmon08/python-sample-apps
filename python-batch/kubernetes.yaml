@@ -1,0 +1,32 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: batcher
+spec:
+  selector:
+    matchLabels:
+      run: batcher
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: batcher
+    spec:
+      containers:
+      - name: batcher
+        image: joatmon08/batcher:2.0
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: batcher
+  labels:
+    run: batcher
+spec:
+  ports:
+  - port: 80
+  selector:
+    run: batcher
