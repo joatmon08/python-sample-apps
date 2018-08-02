@@ -10,8 +10,6 @@ build: bootstrap
 
 push:
 	docker push joatmon08/batcher:$(VERSION)
-	docker tag joatmon08/batcher:$(VERSION)
-	docker push joatmon08/batcher:latest
 
 bootstrap: virtualenv
 ifneq ($(wildcard requirements.txt),)
